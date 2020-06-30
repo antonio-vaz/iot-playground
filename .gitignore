@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+nodeauthdemo-205312-a5badc253d76.json
+rsa_private.pem
+rsa_public.pem

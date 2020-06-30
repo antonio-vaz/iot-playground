@@ -1,0 +1,128 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server for an IoT Controller."
+  version: "1.0.0"
+  title: "My IoT Controller"
+  contact:
+    email: "avaz3@slb.com"
+  license:
+    name: "GPL-3.0"
+host: "localhost:3000"
+basePath: "/"
+tags:
+- name: "actuators"
+  description: "Handle actuators state"
+schemes:
+- "http"
+paths:
+  /status:
+    get:
+      tags:
+      - "actuators"
+      summary: "Report status for actuators"
+      description: "Returns info about actuators"
+      operationId: "getActuators"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Actuator"
+      security:
+      - api_key: []
+  /rgb:
+    post:
+      summary: "Change RGB led color and intensity"
+      tags:
+        - "actuators"
+      consumes:
+        - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "RGB led object that needs to be changed"
+        required: true
+        schema:
+          $ref: "#/definitions/RGBLedBody"
+      responses:
+        "201":
+          description: "successful operation"
+  /switch:
+    post:
+      summary: "Enable or disable the switch"
+      tags:
+        - "actuators"
+      consumes:
+        - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Switch object that needs to be changed"
+        required: true
+        schema:
+          $ref: "#/definitions/Switch"
+      responses:
+        "201":
+          description: "successful operation"
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Switch:
+    type: "object"
+    properties:
+      switch:
+        type: "string"
+        enum:
+          - On
+          - Off
+  RGBLed:
+    type: "object"
+    description: RGB Led
+    properties:
+      brightness:
+        type: "integer"
+        format: "int32"
+      color:
+        $ref: "#/definitions/Color"
+  RGBLedBody:
+    type: "object"
+    description: RGB Led change
+    properties:
+      red:
+        type: "integer"
+        format: "int32"
+      green:
+        type: "integer"
+        format: "int32"
+      blue:
+        type: "integer"
+        format: "int32"
+      brightness:
+        type: "integer"
+        format: "int32"
+  Color:
+    type: "object"
+    properties:
+      red:
+        type: "integer"
+        format: "int32"
+      green:
+        type: "integer"
+        format: "int32"
+      blue:
+        type: "integer"
+        format: "int32"
+  Actuator:
+    type: "object"
+    properties:
+      rgb_led:
+        $ref: "#/definitions/RGBLed"
+      switch:
+        type: "string"
+        enum:
+          - On
+          - Off
