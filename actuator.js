@@ -1,8 +1,8 @@
 const { Boards, Led, Pin } = require("johnny-five");
 
 var ports = [
-       { id: "A", port: "/dev/cu.usbmodem141101" },
-       { id: "B", port: "/dev/cu.usbmodem145101" }
+       { id: "A", port: "/dev/ttyACM0" },
+       { id: "B", port: "/dev/ttyACM1" }
 ];
 
 const boards = new Boards(ports);
@@ -42,9 +42,18 @@ var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
 
-function rgbToHex(r, g, b) {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+
+
+function componentToHex(c) {
+  var hex = c.toString(16);
+  return hex.length == 1 ? "0" + hex : hex;
 }
+
+function rgbToHex(r, g, b) {
+  return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -60,7 +69,6 @@ app.post('/rgb', function (req, res) {
     var red = req.body.red?((req.body.red>255)?255:(req.body.red<0)?0:req.body.red):0;
     var green = req.body.green?((req.body.green>255)?255:(req.body.green<0)?0:req.body.green):0;
     var blue = req.body.blue?((req.body.blue>255)?255:(req.body.blue<0)?0:req.body.blue):0;
-
     var newHex = rgbToHex(red, green, blue);
     var intensity = req.body.brightness;
     if(!intensity || intensity < 0){

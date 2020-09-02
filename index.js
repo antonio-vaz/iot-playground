@@ -5,8 +5,8 @@ const event_trigger = require('./publish_event_pubsub');
 var schedule = require('node-schedule');
 
 var ports = [
-       { id: "A", port: "/dev/cu.usbmodem141101" },
-       { id: "B", port: "/dev/cu.usbmodem145101" }
+       { id: "A", port: "/dev/ttyACM0" },
+       { id: "B", port: "/dev/ttyACM1" }
 ];
 
 const boards = new Boards(ports);

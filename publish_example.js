@@ -13,12 +13,12 @@ const createJwt = (projectId, privateKeyFile, algorithm) => {
   return jwt.sign(token, privateKey, {algorithm: algorithm});
 };
 
-var argv_projectId = '';
+var argv_projectId = 'projectdemo1-286822';
 var argv_privateKeyFile = 'rsa_private.pem';
 var argv_algorithm = 'RS256';
-var argv_cloudRegion = 'europe-west1';
-var argv_registryId = 'myregistry';
-var argv_deviceId = 'iotcontroller_node';
+var argv_cloudRegion = 'us-central1';
+var argv_registryId = 'iot-registry';
+var argv_deviceId = 'raspberrypi-demo';
 var argv_messageType = 'events';
 var argv_httpBridgeAddress = 'cloudiotdevice.googleapis.com';
 

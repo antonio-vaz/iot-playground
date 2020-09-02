@@ -1,6 +1,6 @@
 'use strict';
 
- const topicName = 'projects/nodeauthdemo-205312/topics/iot-event';
+ const topicName = 'projects/projectdemo1-286822/topics/iot-event';
 
   const {PubSub} = require('@google-cloud/pubsub');
 
